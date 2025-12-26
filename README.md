@@ -1,126 +1,702 @@
-### 项目说明
-- renren-security是一个轻量级的，前后端分离的Java快速开发平台，能快速开发项目并交付【接私活利器】
-- 采用SpringBoot3.x、Shiro、MyBatis-Plus、Vue3、TypeScript、Element Plus、Vue Router、Pinia、Axios、Vite框架，开发的一套权限系统，极低门槛，拿来即用。设计之初，就非常注重安全性，为企业系统保驾护航，让一切都变得如此简单。
-- 提供了代码生成器，只需编写30%左右代码，其余的代码交给系统自动生成，可快速完成开发任务
-- 支持MySQL、达梦、Oracle、SQL Server、PostgreSQL等主流数据库
-- 演示地址：http://demo.open.renren.io/renren-security （账号密码：admin/admin）
+# 专升本学习路径规划系统
 
-<br>
+## 项目说明
 
-### 微信交流群
-我们提供了微信交流群，扫码下面的二维码，关注【人人开源】公众号，回复【加群】，即可根据提示加入微信群！
-<br><br>
-![输入图片说明](renren-admin/src/main/resources/public/wechat.jpg)
+本项目是基于 **renren-security** 快速开发平台深度定制的**专升本学习路径规划系统**，专为学生和自学者设计。系统通过学情问卷分析用户的学习情况，自动生成科学的个性化学习计划，并提供甘特图可视化展示和智能进度跟踪功能。
 
-<br>
+### 核心特色
 
-### 具有如下特点
-- 友好的代码结构及注释，便于阅读及二次开发
-- 实现前后端分离，通过token进行数据交互，前端再也不用关注后端技术
-- 灵活的权限控制，可控制到页面或按钮，满足绝大部分的权限需求
-- 提供CrudService接口，对增删改查进行封装，代码更简洁
-- 页面交互使用Vue3.x，极大的提高了开发效率
-- 完善的部门管理及数据权限，通过注解实现数据权限的控制
-- 完善的XSS防范及脚本过滤，彻底杜绝XSS攻击
-- 完善的代码生成机制，可在线生成entity、xml、dao、service、vue、sql代码，减少70%以上的开发任务
-- 引入quartz定时任务，可动态完成任务的添加、修改、删除、暂停、恢复及日志查看等功能
-- 引入Hibernate Validator校验框架，轻松实现后端校验
-- 引入云存储服务，已支持：七牛云、阿里云、腾讯云等
-- 引入swagger文档支持，方便编写API接口文档
+- 🎯 **智能个性化规划**：通过问卷分析自动生成专属学习路径
+- 📊 **甘特图可视化**：直观展示学习计划的时间轴和进度
+- 🔄 **跨天任务分割**：支持将复杂知识点拆分到多天学习
+- 📅 **智能补交机制**：自动识别过期任务并提供补交功能
+- 📈 **实时进度跟踪**：多维度统计和进度展示
+- 📱 **友好的学生界面**：简洁直观的操作体验
 
-<br>
+## 技术架构
 
-### 数据权限设计思想
-- 用户管理、角色管理、部门管理，可操作本部门及子部门数据
-- 菜单管理、定时任务、参数管理、字典管理、系统日志，没有数据权限
-- 业务功能，按照用户数据权限，查询、操作数据【没有本部门数据权限，也能查询本人数据】
+### 后端技术栈
+- **核心框架**：Spring Boot 3.x
+- **安全框架**：Apache Shiro 1.12
+- **持久层框架**：MyBatis-Plus 3.5
+- **数据库连接池**：Druid 1.2
+- **定时任务**：Quartz 2.3
+- **日志管理**：Logback
+- **接口文档**：Swagger
 
-<br> 
+### 前端技术栈
+- **前端框架**：Vue 3.x + TypeScript
+- **UI组件库**：Element Plus
+- **状态管理**：Pinia
+- **路由管理**：Vue Router
+- **可视化图表**：ECharts (甘特图)
+- **构建工具**：Vite
+- **HTTP客户端**：Axios
 
-
-**项目结构**
-```
-renren-security
-├─renren-common     公共模块
-│ 
-├─renren-admin      管理后台
-│    ├─db  数据库SQL脚本
-│    │ 
-│    ├─modules  模块
-│    │    ├─job 定时任务
-│    │    ├─log 日志管理
-│    │    ├─oss 文件存储
-│    │    ├─security 安全模块
-│    │    └─sys 系统管理(核心)
-│    │ 
-│    └─resources 
-│        ├─mapper   MyBatis文件
-│        ├─public  静态资源
-│        └─application.yml   全局配置文件
-│       
-│ 
-├─renren-api        API服务
-│ 
-├─renren-generator  代码生成器
-│        └─resources 
-│           ├─mapper   MyBatis文件
-│           ├─template 代码生成器模板（可增加或修改相应模板）
-│           ├─application.yml    全局配置文件
-│           └─generator.properties   代码生成器，配置文件
-│ 
-├─renren-ui        Vue3前端工程
-```
-
-<br>
-
-**技术选型：**
-- 核心框架：Spring Boot 3.x
-- 安全框架：Apache Shiro 1.12
-- 持久层框架：MyBatis 3.5
-- 定时器：Quartz 2.3
-- 数据库连接池：Druid 1.2
-- 日志管理：Logback
-- 页面交互：Vue3.x
-
-<br>
-
-**软件需求**
-- JDK17+
-- Maven3.6+
-- MySQL8.0+
+### 数据库支持
+- MySQL 8.0+
 - Oracle 11g+
-- SQLServer 2012+
+- SQL Server 2012+
 - PostgreSQL 9.4+
 - 达梦8
-<br>
 
+## 核心功能模块
 
-**本地部署**
-- 通过git下载源码
-- 创建数据库renren_security，数据库编码为UTF-8
-- 执行db/mysql.sql文件，初始化数据
-- 修改application-dev.yml文件，更新MySQL账号和密码
-- 在renren-security目录下，执行mvn clean install
-- IDEA运行AdminApplication.java，则可启动项目【renren-admin】
-- renren-admin访问路径：http://localhost:8080/renren-admin
-- swagger文档路径：http://localhost:8080/renren-admin/doc.html
-- 再启动前端工程
-- 账号密码：admin/admin
-<br>
+### 管理端功能
 
-![输入图片说明](renren-admin/src/main/resources/public/1.png)
+#### 1. 知识点管理
+- 知识点的增删改查
+- 科目分类管理
+- 知识点层级关系维护
 
-<br>
+#### 2. 学习资源管理
+- 学习资料上传和管理
+- 资源分类和标签
+- 资源关联知识点
 
-![输入图片说明](renren-admin/src/main/resources/public/2.png)
+#### 3. 用户画像管理
+- 学生基本信息管理
+- 学习偏好记录
+- 学习能力评估
 
-<br>
+#### 4. 用户科目水平
+- 各科目掌握程度评估
+- 水平等级管理
+- 弱项分析
 
-### 如何交流、反馈、参与贡献？
-- 开发文档：https://www.renren.io/guide/security
-- Gitee仓库：https://gitee.com/renrenio/renren-security
-- GitCode仓库：https://gitcode.com/renrenio/renren-security
-- [人人开源](https://www.renren.io)：https://www.renren.io
-- 如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持
-<br>
+#### 5. 学习计划管理
+- 计划创建和编辑
+- 计划模板管理
+- 计划状态跟踪
 
+#### 6. 学习计划项管理
+- 任务项详细配置
+- 时间安排管理
+- 完成状态跟踪
+
+### 学生端功能
+
+#### 1. 学情问卷
+- **智能问卷**：涵盖学习目标、时间安排、科目偏好等
+- **自动分析**：基于问卷结果生成个性化计划
+- **即时反馈**：问卷提交后立即生成学习路径
+
+#### 2. 学习概览 (Dashboard)
+- **核心数据卡片**：
+  - 学习天数：当前已进行的学习天数
+  - 学习总进度：整体完成百分比
+  - 已完成任务：已完成/总任务数
+  - 剩余天数：计划剩余时间
+
+- **今日任务**：
+  - 显示当天需要完成的任务
+  - 支持一键标记完成
+  - 显示任务进度（跨天任务）
+  - 区分新任务和复习任务
+
+- **补交任务**：
+  - 自动识别过期未完成任务
+  - 支持补交完成标记
+  - 显示应完成日期
+  - 鼓励性提示信息
+
+#### 3. 我的学习计划
+- **甘特图展示**：
+  - 时间轴可视化
+  - 任务分布一目了然
+  - 进度状态颜色区分
+  - 支持缩放和拖拽
+
+- **计划概览**：
+  - 计划名称和基本信息
+  - 总天数、每日学习时长、剩余天数
+  - 清晰的统计展示
+
+- **任务详情列表**：
+  - 按天排序的任务清单
+  - 科目分类显示
+  - 进度百分比
+  - 完成状态标签
+
+#### 4. 学习资源
+- 资源列表浏览
+- 按知识点筛选
+- 在线查看/下载
+
+## 核心算法设计
+
+本项目的核心在于 **StudyPlanServiceImpl** 中的智能学习计划生成算法，该算法实现了个性化、科学化的学习路径规划。
+
+### 1. 智能复习策略（艾宾浩斯遗忘曲线）
+
+**复习间隔机制**：
+- 遵循艾宾浩斯遗忘曲线，在知识点学习完成后，自动安排4次复习
+- **复习时间点**：学习完成后第3天、第7天、第14天、第30天
+- **复习时长计算**：原知识点时长的一半，向上取整，但不超过每日学习时间的50%
+
+**复习任务约束**：
+```java
+// 每日复习总时长不超过60%
+if (currentReviewHours + duration > dailyHours * DAILY_REVIEW_RATIO) {
+    // 推迟到第二天
+}
+
+// 单个复习任务不超过50%
+int duration = Math.max(1, Math.min(halfTime, maxReview));
+```
+
+**复习优先级**：每日优先分配复习任务，确保记忆巩固。
+
+### 2. 智能任务拆分机制
+
+**阈值触发条件**：
+- 当每日学习时长 ≥ 5小时时，启用60%阈值限制
+- 防止单个知识点占用过多时间，影响学习多样性
+
+**拆分规则**：
+```java
+// 新知识点单次分配不超过60%
+if (dailyHours >= THRESHOLD_ENABLE_HOURS) {
+    int threshold = (int) Math.floor(dailyHours * NEW_TASK_THRESHOLD_RATIO);
+    maxAllow = Math.min(threshold, remainingTime);
+}
+```
+
+**跨天学习示例**：
+- 一个14小时的知识点，在每日6小时的学习计划中
+- 第1天：分配3.6小时（60%阈值）
+- 第2天：分配3.6小时
+- 第3天：分配剩余6.8小时
+
+### 3. 科目交替轮转算法
+
+**权重计算**（弱科优先）：
+```java
+// 水平越低，权重越高
+double weight = 6.0 - (entry.getValue() != null ? entry.getValue() : 3);
+```
+
+**轮转序列生成**：
+- 根据权重计算每个科目的出现频率
+- 随机打乱序列，避免固定学习模式
+- 实现科目交替，防止疲劳
+
+**示例**：
+- 数学（水平2）：权重4，出现4次
+- 英语（水平4）：权重2，出现2次
+- 语文（水平3）：权重3，出现3次
+- 轮转序列：[数学, 英语, 语文, 数学, 语文, 数学, 语文, 数学, 英语]
+
+### 4. 跨天任务管理
+
+**任务状态追踪**：
+```java
+private static class CrossDayTask {
+    private Long knowledgePointId;    // 知识点ID
+    private String subjectName;       // 科目名称
+    private int originalHours;        // 任务总时长
+    private int remainingHours;       // 剩余未分配时长
+    private int allocatedHours;       // 已分配时长
+    private int currentPart;          // 当前是第几部分
+    private int finishDay;            // 完成学习的那一天
+    private int estimatedTotalParts;  // 预估总部分数
+}
+```
+
+**优先续分配**：
+- 当轮转到某科目时，优先检查是否有未完成的跨天任务
+- 如果有，继续分配剩余时间，直到任务完成
+- 任务完成后，自动安排复习计划
+
+**进度可视化**：
+- 前端显示：第2部分/共3部分，进度67%
+- 后端追踪：split_part / total_parts
+
+### 5. 复习任务约束机制
+
+**双重约束检查**：
+1. **总量约束**：当日复习总时长 ≤ 60% × 每日时长
+2. **单次约束**：单个复习任务 ≤ 50% × 每日时长
+
+**智能推迟**：
+```java
+// 复习任务超过限制时，推迟到下一天
+if (currentReviewHours + duration > dailyHours * DAILY_REVIEW_RATIO) {
+    deferReviewToNextDay(review, currentDay, reviewQueue);
+}
+```
+
+**避免重复**：
+- 同一天不会安排同一知识点的多次复习
+- 自动跳过已存在的复习任务
+
+### 6. 算法执行流程
+
+```
+1. 初始化数据结构
+   ├── 剩余知识点队列（按难度排序）
+   ├── 跨天任务缓存（科目 -> 任务）
+   ├── 复习队列（天数 -> 任务列表）
+   └── 科目轮转序列（权重计算 + 随机打乱）
+
+2. 按天遍历生成计划
+   ├── 步骤一：分配复习任务（优先级最高）
+   │   ├── 检查总量约束（60%）
+   │   ├── 检查单次约束（50%）
+   │   └── 满足条件则分配，否则推迟
+   │
+   └── 步骤二：分配新知识点（科目交替）
+       ├── 检查跨天任务（优先续分配）
+       ├── 检查剩余知识点
+       ├── 应用阈值拆分（≥5小时时启用）
+       └── 更新任务状态
+
+3. 任务完成处理
+   ├── 跨天任务完成 → 安排复习计划
+   └── 保存计划项到数据库
+
+4. 终止条件
+   ├── 无剩余知识点
+   ├── 无跨天任务
+   └── 无未来复习任务
+```
+
+### 7. 算法优势
+
+- **个性化**：根据用户水平动态调整科目权重
+- **科学性**：基于遗忘曲线安排复习
+- **灵活性**：支持跨天学习和任务拆分
+- **均衡性**：科目交替避免疲劳
+- **实用性**：约束机制确保计划可执行
+
+## 数据库设计
+
+### 数据表结构
+
+#### 1. user_profile（用户画像表）
+```sql
+CREATE TABLE `user_profile` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '关联用户ID',
+  `exam_category` varchar(50) NOT NULL COMMENT '招考类别(理工类/经管类/医学类等)',
+  `target_school` varchar(255) DEFAULT NULL COMMENT '目标院校',
+  `current_major` varchar(255) DEFAULT NULL COMMENT '当前专业',
+  `target_major` varchar(255) DEFAULT NULL COMMENT '目标专业',
+  `preparation_months` int(11) DEFAULT NULL COMMENT '备考月数',
+  `daily_study_time` int(11) DEFAULT NULL COMMENT '每日学习时间(小时)',
+  `public_course_type` varchar(20) DEFAULT NULL COMMENT '公共基础课类型(大学语文/高等数学)',
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='用户专升本信息扩展表';
+```
+
+#### 2. user_subject_level（用户科目水平表）
+```sql
+CREATE TABLE `user_subject_level` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `subject_type` varchar(20) NOT NULL COMMENT '科目类型(public/professional)',
+  `subject_name` varchar(100) NOT NULL COMMENT '科目名称',
+  `level` int(11) DEFAULT NULL COMMENT '基础水平1-5',
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='用户科目基础水平表';
+```
+
+#### 3. knowledge_point（知识点库表）
+```sql
+CREATE TABLE `knowledge_point` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `exam_category` varchar(50) DEFAULT NULL COMMENT '招考类别',
+  `subject_name` varchar(100) DEFAULT NULL COMMENT '科目名称',
+  `chapter` varchar(255) DEFAULT NULL COMMENT '章节',
+  `point_name` varchar(255) DEFAULT NULL COMMENT '知识点名称',
+  `difficulty` int(11) DEFAULT NULL COMMENT '难度等级1-5',
+  `estimated_hours` int(11) DEFAULT NULL COMMENT '预计学习时长(小时)',
+  `weight` int(11) DEFAULT NULL COMMENT '考试权重1-10',
+  `prerequisite_ids` varchar(500) DEFAULT NULL COMMENT '前置知识点ID',
+  `description` text COMMENT '知识点描述',
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='知识点库';
+```
+
+**内置数据**：已预置福建专升本知识点库，包含：
+- **公共课**：思政理论、大学英语、大学语文、高等数学
+- **专业课**：文史基础、教育理论基础、信息技术基础、经济学与管理学基础
+
+#### 4. learning_resource（学习资源表）
+```sql
+CREATE TABLE `learning_resource` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(500) DEFAULT NULL COMMENT '资源标题',
+  `url` varchar(1000) DEFAULT NULL COMMENT '资源链接',
+  `resource_type` varchar(50) DEFAULT NULL COMMENT '类型(视频/文章/习题)',
+  `exam_category` varchar(50) DEFAULT NULL COMMENT '适用招考类别',
+  `subject_name` varchar(100) DEFAULT NULL COMMENT '适用科目',
+  `knowledge_point_ids` varchar(500) DEFAULT NULL COMMENT '关联知识点',
+  `difficulty` int(11) DEFAULT NULL COMMENT '难度等级',
+  `source_platform` varchar(100) DEFAULT NULL COMMENT '来源平台',
+  `description` text COMMENT '资源描述',
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='学习资源表';
+```
+
+#### 5. study_plan（学习计划表）
+```sql
+CREATE TABLE `study_plan` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `plan_name` varchar(255) DEFAULT NULL COMMENT '计划名称',
+  `total_days` int(11) DEFAULT NULL COMMENT '总天数',
+  `daily_hours` int(11) DEFAULT NULL COMMENT '每日学习小时数',
+  `start_date` date DEFAULT NULL COMMENT '开始日期',
+  `end_date` date DEFAULT NULL COMMENT '结束日期',
+  `total_subjects` int(11) DEFAULT 0 COMMENT '总科目数',
+  `completed_subjects` int(11) DEFAULT 0 COMMENT '已完成科目数',
+  `total_review_days` int(11) DEFAULT 7 COMMENT '总复习天数',
+  `overall_progress` decimal(5,2) DEFAULT 0.0 COMMENT '总体进度',
+  `status` int(11) DEFAULT NULL COMMENT '状态：0-未开始，1-进行中，2-已完成',
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='学习计划表';
+```
+
+#### 6. study_plan_item（学习计划项表）
+```sql
+CREATE TABLE `study_plan_item` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `plan_id` bigint(20) NOT NULL COMMENT '学习计划ID',
+  `knowledge_point_id` bigint(20) DEFAULT NULL COMMENT '知识点ID',
+  `subject_name` varchar(100) DEFAULT NULL COMMENT '科目名称',
+  `day_index` int(11) DEFAULT NULL COMMENT '第几天',
+  `sort` int(11) DEFAULT NULL COMMENT '排序',
+  `completed` tinyint(1) DEFAULT '0' COMMENT '是否完成：0-未完成，1-已完成，2-补交',
+  `completion_date` datetime DEFAULT NULL COMMENT '完成时间',
+  `is_review` tinyint(1) DEFAULT '0' COMMENT '是否复习项：0-否，1-是',
+  `split_part` int(11) DEFAULT 1 COMMENT '拆分部分（第几部分），用于跨天学习',
+  `total_parts` int(11) DEFAULT 1 COMMENT '总部分数，用于跨天学习',
+  `split_hours` int(11) DEFAULT NULL COMMENT '本次分配的时长（小时）',
+  `create_date` datetime DEFAULT NULL,
+  `update_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='学习计划项表';
+```
+
+**核心字段说明**：
+- **completed**：三种状态（0-未完成、1-已完成、2-补交），支持任务补交机制
+- **is_review**：区分新学习和复习任务
+- **split_part/total_parts**：实现跨天任务拆分和进度追踪
+- **split_hours**：记录每次分配的学习时长
+
+## 项目结构
+
+```
+renren-security-master
+├─renren-common              公共模块
+│  └─src/main/java/io/renren/common
+│     ├─annotation/          注解
+│     ├─aspect/              切面
+│     ├─config/              配置
+│     ├─exception/           异常处理
+│     ├─handler/             处理器
+│     ├─interceptor/         拦截器
+│     └─utils/               工具类
+│
+├─renren-admin               管理后台 (Java后端)
+│  └─src/main/java/io/renren/modules/student
+│     ├─controller/          控制器
+│     │  ├─DashboardController.java          学生仪表盘
+│     │  ├─KnowledgePointController.java     知识点管理
+│     │  ├─LearningResourceController.java   学习资源
+│     │  ├─QuestionnaireController.java      学情问卷
+│     │  ├─StudyPlanController.java          学习计划
+│     │  ├─StudyPlanItemController.java      计划项管理
+│     │  ├─UserProfileController.java        用户画像
+│     │  └─UserSubjectLevelController.java   科目水平
+│     ├─dao/                                   数据访问
+│     ├─dto/                                   数据传输对象
+│     ├─entity/                                实体类
+│     ├─excel/                                 Excel导出
+│     └─service/                               业务逻辑
+│        └─impl/                               实现类
+│
+├─renren-api                API服务
+│
+├─renren-generator          代码生成器
+│
+└─renren-ui                 Vue3前端工程
+   └─src/
+      ├─components/student/  学生端组件
+      │  └─StudyGanttChart.vue  甘特图组件
+      ├─views/student/       学生端页面
+      │  ├─student-ui/       学生UI界面
+      │  │  ├─dashboard.vue          学习概览
+      │  │  ├─study-plan.vue         我的学习计划
+      │  │  ├─questionnaire.vue      学情问卷
+      │  │  └─resources.vue          学习资源
+      │  ├─knowledgepoint.vue        知识点管理
+      │  ├─learningresource.vue      学习资源管理
+      │  ├─studyplan.vue             学习计划管理
+      │  ├─studyplanitem.vue         计划项管理
+      │  ├─userprofile.vue           用户画像管理
+      │  └─usersubjectlevel.vue      科目水平管理
+      └─service/                     服务层
+         └─baseService.ts            基础服务
+```
+
+## 本地部署
+
+### 环境要求
+- JDK 17+
+- Maven 3.6+
+- MySQL 8.0+
+- Node.js 16+
+- npm 或 pnpm
+
+### 部署步骤
+
+#### 1. 后端部署
+
+```bash
+# 1. 克隆项目
+git clone https://github.com/your-username/renren-security-master.git
+cd renren-security-master
+
+# 2. 创建数据库
+# 登录MySQL，执行以下命令
+CREATE DATABASE renren_security CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+# 3. 初始化数据库
+# 执行数据库脚本（按顺序执行）
+mysql -u root -p renren_security < db/test.sql                    # 基础表结构
+mysql -u root -p renren_security < db/hexingsfagengxin.sql       # 新增字段
+mysql -u root -p renren_security < db/planitemaddblack.sql       # 跨天学习字段
+mysql -u root -p renren_security < db/knowledge_point_add.sql    # 预置知识点库
+
+# 4. 修改配置文件
+# 编辑 renren-admin/src/main/resources/application-dev.yml
+# 修改数据库连接信息：
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/renren_security?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: your_password
+
+# 5. 编译项目
+mvn clean install
+
+# 6. 启动后端服务
+# 方式一：IDE运行
+# 直接运行 AdminApplication.java
+
+# 方式二：命令行
+cd renren-admin
+mvn spring-boot:run
+
+# 或者
+java -jar renren-admin/target/renren-admin.jar
+```
+
+#### 2. 前端部署
+
+```bash
+# 1. 进入前端目录
+cd renren-ui
+
+# 2. 安装依赖
+npm install
+# 或使用 pnpm
+pnpm install
+
+# 3. 启动开发服务器
+npm run dev
+# 或
+pnpm dev
+
+# 4. 访问应用
+# 开发环境：http://localhost:5173
+# 登录账号：admin/admin
+```
+
+### 访问地址
+
+- **管理后台**：http://localhost:8080/renren-admin
+- **Swagger文档**：http://localhost:8080/renren-admin/doc.html
+- **前端界面**：http://localhost:5173
+- **学生端登录**：使用 admin/admin 登录后访问学生功能
+
+## 功能使用流程
+
+### 1. 首次使用流程
+
+1. **管理员配置基础数据**
+   - 登录管理后台 (admin/admin)
+   - 添加知识点 (知识管理 → 知识点管理)
+   - 配置学习资源 (知识管理 → 学习资源管理)
+
+2. **学生填写学情问卷**
+   - 访问学生端界面
+   - 点击"学情问卷"
+   - 完善个人信息和学习偏好
+   - 提交问卷，系统自动生成学习计划
+
+3. **查看学习计划**
+   - 进入"我的学习计划"
+   - 查看甘特图可视化展示
+   - 了解每日学习任务安排
+
+4. **日常学习跟踪**
+   - 查看"学习概览"了解今日任务
+   - 完成任务后标记完成状态
+   - 系统自动计算进度和统计数据
+
+5. **处理补交任务**
+   - 关注"补交任务"区域
+   - 对过期任务进行补交操作
+   - 保持学习进度的完整性
+
+### 2. 核心使用场景
+
+#### 场景一：自动生成学习计划
+```
+用户填写问卷 → 系统分析水平 → 生成个性化计划 → 可视化展示
+```
+
+#### 场景二：日常学习跟踪
+```
+查看今日任务 → 完成学习 → 标记进度 → 查看统计 → 调整计划
+```
+
+#### 场景三：补交过期任务
+```
+识别过期任务 → 选择补交 → 更新进度 → 继续后续任务
+```
+
+## 数据权限设计
+
+本项目继承了renren-security的数据权限设计，并针对学生场景进行了优化：
+
+- **学生端**：只能查看和操作自己的学习数据
+- **管理端**：管理员可查看所有学生数据，用于系统维护
+- **数据隔离**：通过用户ID和权限注解实现数据隔离
+
+## 系统特色功能
+
+### 1. 智能任务分割
+- 支持将复杂知识点拆分到多天学习
+- 自动计算每日学习量
+- 进度条实时显示完成度
+
+### 2. 复习任务机制
+- 自动标记复习知识点
+- 区分新学和复习任务
+- 优化记忆曲线
+
+### 3. 补交机制
+- 自动识别过期未完成任务
+- 提供补交功能，避免进度丢失
+- 统计补交次数，分析学习习惯
+
+### 4. 可视化甘特图
+- 直观展示时间轴
+- 颜色区分任务状态
+- 支持缩放查看细节
+
+### 5. 实时统计分析
+- 多维度数据卡片
+- 进度百分比计算
+- 剩余时间预估
+
+## 开发指南
+
+### 代码生成器使用
+
+本项目保留了renren-security的代码生成器功能，可用于快速开发新模块：
+
+```bash
+# 1. 配置代码生成器
+# 编辑 renren-generator/src/main/resources/generator.properties
+
+# 2. 启动代码生成器
+cd renren-generator
+mvn spring-boot:run
+
+# 3. 访问生成器界面
+http://localhost:8080/renren-generator
+```
+
+### 新增模块开发
+
+1. **创建数据库表**
+2. **使用代码生成器生成基础代码**
+3. **根据业务需求修改生成的代码**
+4. **前端页面开发**
+5. **测试和部署**
+
+### 前端组件开发
+
+#### 甘特图组件 (StudyGanttChart.vue)
+- 基于ECharts实现
+- 支持自定义配置
+- 响应式设计
+
+#### 任务列表组件
+- 支持多种状态显示
+- 交互式操作
+- 实时更新
+
+## 常见问题
+
+### Q1: 如何修改学习计划？
+A: 在管理后台的"学习计划管理"中可以修改计划基本信息，在"学习计划项管理"中可以调整具体任务。
+
+### Q2: 补交任务会影响进度统计吗？
+A: 补交任务会正常计入完成统计，但会标记为"补交"状态，便于分析学习习惯。
+
+### Q3: 如何添加新的科目？
+A: 在知识点管理中添加新科目的知识点，系统会自动识别新科目。
+
+### Q4: 甘特图不显示怎么办？
+A: 检查是否有有效的学习计划，确保计划包含具体的学习任务项。
+
+### Q5: 如何重置学习计划？
+A: 在管理后台删除现有计划，重新填写问卷即可生成新计划。
+
+## 技术支持
+
+- **开发文档**：https://www.renren.io/guide/security
+- **Gitee仓库**：https://gitee.com/renrenio/renren-security
+- **项目地址**：https://gitee.com/qian1000/study-path-planner
+
+## 更新日志
+
+### v1.0.0 (2025-12-25)
+- ✅ 完成基础架构搭建
+- ✅ 实现学情问卷功能
+- ✅ 实现学习计划自动生成
+- ✅ 实现学习概览Dashboard
+- ✅ 实现甘特图可视化
+- ✅ 实现任务进度跟踪
+- ✅ 实现补交机制
+- ✅ 实现学习资源管理
+
+## 贡献指南
+
+欢迎提交Issue和Pull Request来贡献代码！
+
+## 开源协议
+
+本项目基于 [MIT License](LICENSE) 开源，保留renren-security原有的开源协议。
+
+---
+
+**注意**：本项目是在renren-security基础上开发的定制化系统，如需用于生产环境，请根据实际业务需求进行适当调整和优化。

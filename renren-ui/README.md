@@ -1,50 +1,534 @@
-## renren-ui
-- renren-ui是基于Vue3、TypeScript、Element Plus、Vue Router、Pinia、Axios、Vite等开发，实现 【[renren-security](https://gitee.com/renrenio/renren-security)】 后台管理前端功能，提供一套更优的前端解决方案
-- 前后端分离，通过token进行数据交互，可独立部署
-- 动态菜单，通过菜单管理统一管理访问路由
-- 后端地址：https://gitee.com/renrenio/renren-security
-- 演示地址：http://demo.open.renren.io/renren-security (账号密码：admin/admin)
+# 专升本学习路径规划系统前端
 
-<br> 
+## 🎯 项目介绍
 
-![输入图片说明](public/1.png)
+本项目是基于 **Vue 3 + TypeScript + Element Plus** 开发的专升本学习路径规划系统前端，专为学生和自学者设计。通过智能化的算法和可视化的界面，帮助用户制定科学的学习计划，实现高效的学习进度跟踪。
 
-## 安装
+### 核心特色
 
-您需要提前在本地安装[Node.js](https://nodejs.org/en/)，版本号为：[18、20]，再使用[Git](https://git-scm.com/)克隆项目或者直接下载项目后，然后通过`终端命令行`执行以下命令。
+- 📊 **甘特图可视化**：基于 ECharts 的学习路径时间轴展示
+- 🎯 **智能问卷生成**：通过学情问卷自动生成个性化学习计划
+- 🔄 **实时进度跟踪**：多维度统计和任务状态管理
+- 📱 **响应式设计**：支持 PC 和移动端的流畅体验
+- 💫 **极速开发体验**：Vite 构建，秒级热更新
+
+## 🛠️ 技术架构
+
+### 核心依赖版本
+
+```json
+{
+  "vue": "^3.5.18",
+  "typescript": "^5.7.2",
+  "vite": "5.4.19",
+  "element-plus": "2.10.5",
+  "pinia": "2.3.1",
+  "vue-router": "4.2.5",
+  "echarts": "^5.2.2",
+  "axios": "1.11.0"
+}
+```
+
+### 技术栈详解
+
+#### 核心框架
+- **Vue 3.5.18**：渐进式 JavaScript 框架，Composition API 提供更好的逻辑复用
+- **TypeScript 5.7.2**：类型安全的 JavaScript 超集，提升代码质量和可维护性
+- **Vite 5.4.19**：下一代前端构建工具，极速冷启动和热更新
+
+#### UI 组件库
+- **Element Plus 2.10.5**：Vue 3 官方推荐的组件库，提供丰富的 UI 组件
+- **@element-plus/icons-vue 2.3.1**：官方图标库，支持按需引入
+
+#### 状态与路由管理
+- **Pinia 2.3.1**：Vue 3 官方状态管理库，类型安全且轻量
+- **Vue Router 4.2.5**：官方路由管理，支持嵌套路由和导航守卫
+
+#### 数据可视化
+- **ECharts 5.2.2**：强大的数据可视化库
+- **vue-echarts 6.0.0**：Vue 3 的 ECharts 封装，响应式数据绑定
+- **自定义 StudyGanttChart 组件**：专为学习路径设计的甘特图组件
+
+#### HTTP 客户端
+- **Axios 1.11.0**：基于 Promise 的 HTTP 客户端
+- 支持请求/响应拦截器
+- 自动 Token 认证
+
+#### 工具库
+- **@vueuse/core 9.1.1**：Vue Composition API 工具集
+- **mitt 2.1.0**：轻量级事件总线
+- **nprogress 0.2.0**：顶部进度条
+- **lodash**：实用的 JavaScript 工具函数
+
+## 📁 项目结构
+
+```
+renren-ui/
+├─ public/                      # 公共资源
+│  ├─ 1.png                    # 功能截图
+│  ├─ wechat.jpg               # 微信交流群二维码
+│  └─ favicon.ico              # 网站图标
+│
+├─ src/
+│  ├─ components/              # 组件库
+│  │  ├─ student/              # 学生端专用组件
+│  │  │  └─ StudyGanttChart.vue    # 甘特图组件 ⭐
+│  │  ├─ base/                 # 基础组件
+│  │  │  └─ svg-icon/          # SVG 图标组件
+│  │  ├─ ren-dept-tree/        # 部门树组件
+│  │  ├─ ren-radio-group/      # 单选组组件
+│  │  ├─ ren-region-tree/      # 区域树组件
+│  │  ├─ ren-select/           # 选择器组件
+│  │  └─ wang-editor/          # 富文本编辑器
+│  │
+│  ├─ views/                   # 页面视图
+│  │  ├─ student/              # 学生端功能
+│  │  │  ├─ student-ui/        # 学生 UI 界面
+│  │  │  │  ├─ dashboard.vue           # 📊 学习概览
+│  │  │  │  ├─ study-plan.vue          # 📅 我的学习计划（甘特图）
+│  │  │  │  ├─ questionnaire.vue       # 📝 学情问卷
+│  │  │  │  └─ resources.vue           # 📚 学习资源
+│  │  │  ├─ knowledgepoint.vue         # 知识点管理
+│  │  │  ├─ learningresource.vue       # 学习资源管理
+│  │  │  ├─ studyplan.vue              # 学习计划管理
+│  │  │  ├─ studyplanitem.vue          # 计划项管理
+│  │  │  ├─ userprofile.vue            # 用户画像管理
+│  │  │  └─ usersubjectlevel.vue       # 科目水平管理
+│  │  │
+│  │  ├─ home.vue               # 首页
+│  │  ├─ login.vue              # 登录页
+│  │  ├─ error.vue              # 错误页
+│  │  ├─ iframe.vue             # 内嵌页面
+│  │  ├─ job/                   # 定时任务
+│  │  ├─ oss/                   # 文件存储
+│  │  └─ sys/                   # 系统管理
+│  │
+│  ├─ router/                   # 路由配置
+│  │  ├─ index.ts              # 路由入口
+│  │  └─ base.ts               # 基础路由
+│  │
+│  ├─ store/                    # Pinia 状态管理
+│  │  └─ index.ts              # Store 入口
+│  │
+│  ├─ service/                  # API 服务层
+│  │  └─ baseService.ts        # 基础服务封装
+│  │
+│  ├─ utils/                    # 工具函数
+│  │  ├─ cache.ts              # 缓存工具
+│  │  ├─ emits.ts              # 事件发射器
+│  │  ├─ http.ts               # HTTP 封装
+│  │  ├─ router.ts             # 路由工具
+│  │  ├─ theme.ts              # 主题工具
+│  │  └─ utils.ts              # 通用工具
+│  │
+│  ├─ constants/                # 常量定义
+│  │  ├─ app.ts                # 应用常量
+│  │  ├─ cacheKey.ts           # 缓存键
+│  │  ├─ config.ts             # 配置常量
+│  │  └─ enum.ts               # 枚举类型
+│  │
+│  ├─ hooks/                    # 组合式函数
+│  │  └─ useView.ts            # 视图相关 Hook
+│  │
+│  ├─ layout/                   # 布局组件
+│  │  ├─ index.vue             # 主布局
+│  │  ├─ layout.vue            # 布局容器
+│  │  ├─ fullscreen-layout.vue # 全屏布局
+│  │  ├─ header/               # 头部组件
+│  │  ├─ sidebar/              # 侧边栏组件
+│  │  └─ view/                 # 视图容器
+│  │
+│  ├─ assets/                   # 静态资源
+│  │  ├─ css/                  # 样式文件
+│  │  ├─ icons/                # 图标资源
+│  │  ├─ images/               # 图片资源
+│  │  └─ theme/                # 主题文件
+│  │
+│  ├─ types/                    # TypeScript 类型定义
+│  │  ├─ env.d.ts              # 环境变量类型
+│  │  ├─ index.d.ts            # 全局类型
+│  │  ├─ interface.ts          # 接口定义
+│  │  └─ shims.d.ts            # Vue 文件类型声明
+│  │
+│  ├─ App.vue                   # 根组件
+│  └─ main.ts                   # 应用入口
+│
+├─ .env.development             # 开发环境配置
+├─ .env.production              # 生产环境配置
+├─ .eslintrc.js                 # ESLint 配置
+├─ .prettierrc                  # Prettier 配置
+├─ babel.config.js              # Babel 配置
+├─ package.json                 # 项目依赖
+├─ tsconfig.json                # TypeScript 配置
+├─ vite.config.ts               # Vite 配置
+└─ GANTT_CHART_README.md        # 甘特图组件文档
+```
+
+## 🚀 快速开始
+
+### 环境要求
+
+- **Node.js**: 16.x / 18.x / 20.x (推荐 18+)
+- **包管理器**: npm / pnpm / yarn
+
+### 安装依赖
 
 ```bash
-# 切换到项目根目录
-
-# 安装插件
+# 使用 npm
 npm install
 
-# 启动项目
+# 使用 pnpm (推荐)
+pnpm install
+
+# 使用 yarn
+yarn install
+```
+
+### 开发启动
+
+```bash
+# 启动开发服务器
 npm run dev
 ```
 
-> 如网络不稳定，安装时出错或进度过慢！请移步 [cnpm](https://npmmirror.com/) 淘宝镜像进行安装。
+启动成功后，访问 [http://localhost:5173](http://localhost:5173)
 
-启动完成后，会自动打开浏览器访问 [http://localhost:8001](http://localhost:8001)，如您看到下面的页面代表`前端项目`运行成功！因为前后端分离项目，需保证`前端项目`和`后台项目`分别独立正常运行。
+### 生产构建
 
-请留意下面的页面，其中`验证码`未能正常显示，控制台有`API请求`报错信息！这时需检查`后台项目`是否正常运行。
+```bash
+# 构建生产版本
+npm run build
 
+# 预览构建结果
+npm run serve
+```
 
+构建产物默认输出到 `dist/` 目录。
 
-## 如何交流、反馈、参与贡献？
-- 开发文档：https://www.renren.io/guide/security
-- 官方社区：https://www.renren.io/community
-- [人人开源](https://www.renren.io)：https://www.renren.io
-- 如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持
-- 技术讨论、二次开发等咨询、问题和建议，请移步到官方社区，我会在第一时间进行解答和回复！
-- 微信扫码并关注【人人开源】，获得项目最新动态及更新提醒<br>
+### 代码规范
 
-  <br>
+```bash
+# ESLint 检查和修复
+npm run lint
+```
 
-## 微信交流群
-我们提供了微信交流群，扫码下面的二维码，关注【人人开源】公众号，回复【加群】，即可根据提示加入微信群！
-<br><br>
-![输入图片说明](public/wechat.jpg)
+## 🎯 核心功能模块
 
-<br>
-<br>
+### 管理端功能
+
+#### 1. 知识点管理 (knowledgepoint.vue)
+- ✅ 知识点的增删改查
+- ✅ 按科目和招考类别分类
+- ✅ 难度等级和预计时长设置
+- ✅ 前置知识点关联
+
+#### 2. 学习资源管理 (learningresource.vue)
+- ✅ 学习资料上传和管理
+- ✅ 多种资源类型（视频/文章/习题）
+- ✅ 按知识点和科目筛选
+- ✅ 来源平台记录
+
+#### 3. 学习计划管理 (studyplan.vue)
+- ✅ 计划列表查看和状态跟踪
+- ✅ 计划基本信息管理
+- ✅ 计划统计信息展示
+
+#### 4. 计划项管理 (studyplanitem.vue)
+- ✅ 任务项详细配置
+- ✅ 时间安排和排序管理
+- ✅ 跨天任务设置
+- ✅ 完成状态跟踪
+
+#### 5. 用户画像管理 (userprofile.vue)
+- ✅ 学生基本信息管理
+- ✅ 学习目标和偏好设置
+- ✅ 备考时间和时长配置
+
+#### 6. 科目水平管理 (usersubjectlevel.vue)
+- ✅ 科目掌握程度评估（1-5级）
+- ✅ 公共课和专业课分类
+- ✅ 弱项分析和权重计算
+
+### 学生端功能
+
+#### 1. 学习概览 (dashboard.vue) ⭐
+**核心数据卡片**：
+- 📊 学习天数：当前已进行的学习天数
+- 📈 学习总进度：整体完成百分比
+- ✅ 已完成任务：已完成/总任务数
+- ⏰ 剩余天数：计划剩余时间
+
+**今日任务**：
+- 显示当天需要完成的任务
+- 支持一键标记完成
+- 显示任务进度（跨天任务）
+- 区分新任务和复习任务
+
+**补交任务**：
+- 自动识别过期未完成任务
+- 支持补交完成标记
+- 显示应完成日期
+- 鼓励性提示信息
+
+#### 2. 我的学习计划 (study-plan.vue) ⭐⭐
+**甘特图可视化**：
+- 📅 时间轴展示学习路径
+- 🎨 颜色区分任务状态
+- 🔍 支持缩放和拖拽
+- 📊 实时进度展示
+
+**计划概览**：
+- 计划名称和基本信息
+- 总天数、每日学习时长、剩余天数
+- 清晰的统计展示
+
+**任务详情列表**：
+- 按天排序的任务清单
+- 科目分类显示
+- 进度百分比
+- 完成状态标签
+
+#### 3. 学情问卷 (questionnaire.vue)
+- 📝 涵盖学习目标、时间安排、科目偏好
+- 🎯 基于问卷结果自动生成个性化计划
+- ⚡ 问卷提交后立即生成学习路径
+- 💾 自动保存用户偏好
+
+#### 4. 学习资源 (resources.vue)
+- 📚 资源列表浏览
+- 🔍 按知识点筛选
+- 👁️ 在线查看/下载
+- ⭐ 收藏功能
+
+## ⭐ 核心组件详解
+
+### StudyGanttChart.vue（甘特图组件）
+
+**技术栈**：
+- Vue 3 + TypeScript
+- ECharts 5.2.2
+- vue-echarts 6.0.0
+
+**核心功能**：
+```typescript
+// 数据结构
+interface GanttData {
+  dayIndex: number;        // 第几天
+  tasks: Task[];          // 当天任务列表
+  date: string;           // 日期
+}
+
+interface Task {
+  id: number;
+  knowledgePointId: number;
+  subjectName: string;
+  completed: number;      // 0-未完成, 1-已完成, 2-补交
+  isReview: number;       // 是否复习
+  splitPart: number;      // 当前部分
+  totalParts: number;     // 总部分数
+}
+```
+
+**可视化特性**：
+- 🎨 颜色编码：
+  - 未完成：蓝色 (#409EFF)
+  - 已完成：绿色 (#67C23A)
+  - 补交：橙色 (#E6A23C)
+  - 复习：紫色 (#9B59B6)
+- 📏 进度条：显示跨天任务完成度
+- 🖱️ 交互：点击任务查看详情
+- 📱 响应式：自适应屏幕尺寸
+
+**配置选项**：
+```typescript
+const chartOptions = {
+  grid: { top: 40, bottom: 40, left: 60, right: 40 },
+  xAxis: { type: 'category', data: dates },
+  yAxis: { type: 'value', min: 0, max: maxTasksPerDay },
+  series: [{ type: 'bar', stack: 'task', data: seriesData }]
+}
+```
+
+### BaseService.ts（API 服务封装）
+
+**特性**：
+- ✅ 统一的请求/响应拦截
+- ✅ Token 自动管理
+- ✅ 错误统一处理
+- ✅ 请求取消机制
+
+**使用示例**：
+```typescript
+import baseService from '@/service/baseService'
+
+// GET 请求
+const response = await baseService.get('/student/dashboard/data', { userId: 1 })
+
+// POST 请求
+const response = await baseService.post('/student/studyplan', planData)
+
+// PUT 请求
+const response = await baseService.put('/student/studyplanitem', itemData)
+
+// DELETE 请求
+const response = await baseService.delete('/student/knowledgepoint', { id: 1 })
+```
+
+## 🔧 配置说明
+
+### 环境变量
+
+#### 开发环境 (.env.development)
+```env
+VITE_API_BASE_URL=http://localhost:8080/renren-admin
+VITE_APP_TITLE=专升本学习路径规划系统
+```
+
+#### 生产环境 (.env.production)
+```env
+VITE_API_BASE_URL=https://api.yourdomain.com
+VITE_APP_TITLE=专升本学习路径规划系统
+```
+
+### Vite 配置 (vite.config.ts)
+
+**主要配置**：
+- **插件**：Vue、TypeScript、HTML 优化、SVG 图标
+- **路径别名**：@ 指向 src 目录
+- **服务器**：端口 5173，自动打开浏览器
+- **构建**：代码分割、Gzip 压缩、Source Map
+
+### TypeScript 配置 (tsconfig.json)
+
+**编译选项**：
+- `target`: ES2020
+- `module`: ESNext
+- `strict`: true（严格模式）
+- `moduleResolution`: node
+- `paths`: 路径别名映射
+
+## 🎨 主题与样式
+
+### 样式预处理
+- **Less**: 主要样式预处理器
+- **Sass**: 部分组件使用
+- **CSS 变量**: 支持动态主题切换
+
+### 主题文件
+```
+src/assets/theme/
+├─ base.less      # 基础样式
+├─ index.less     # 主题入口
+└─ mobile.less    # 移动端样式
+```
+
+### 响应式设计
+- **断点**：
+  - ≥ 1200px：大屏幕
+  - ≥ 992px：中等屏幕
+  - ≥ 768px：平板
+  - < 768px：移动端
+
+## 📦 开发工具
+
+### ESLint + Prettier
+- **代码规范**：Vue 3 + TypeScript 最佳实践
+- **自动格式化**：保存文件时自动修复
+- **统一风格**：团队协作规范
+
+### Git Hooks
+- **pre-commit**：提交前自动 lint
+- **lint-staged**：只检查变更文件
+
+### Vue DevTools
+- **Vite 插件**：开发调试工具
+- **Pinia 支持**：状态管理调试
+- **时间旅行**：状态变更追踪
+
+## 🔍 常见问题
+
+### Q1: 启动时报端口占用
+```bash
+# 修改端口
+npm run dev -- --port 5174
+```
+
+### Q2: TypeScript 类型错误
+```bash
+# 检查类型
+npx vue-tsc --noEmit
+
+# 自动修复
+npm run lint
+```
+
+### Q3: ECharts 图表不显示
+- 检查 `vue-echarts` 是否正确安装
+- 确保在组件中正确导入
+- 验证数据格式是否符合要求
+
+### Q4: API 请求失败
+- 检查后端服务是否启动
+- 验证环境变量 `VITE_API_BASE_URL` 配置
+- 查看浏览器控制台网络错误
+
+### Q5: 甘特图数据异常
+- 确保 `study_plan_item` 表数据完整
+- 验证 `split_part` 和 `total_parts` 字段
+- 检查 `completed` 状态值（0/1/2）
+
+## 📞 技术支持
+
+### 开发文档
+- **官方文档**：https://www.renren.io/guide/security
+- **Vue 3 文档**：https://vuejs.org/
+- **Element Plus**：https://element-plus.org/
+- **ECharts**：https://echarts.apache.org/
+
+### 项目地址
+- **Gitee**：https://gitee.com/renrenio/renren-security
+- **GitHub**：https://github.com/your-username/renren-security-master
+
+### 交流反馈
+- **官方社区**：https://www.renren.io/community
+- **微信交流群**：关注【人人开源】公众号，回复【加群】
+- **技术讨论**：欢迎提交 Issue 和 PR
+
+## 📈 性能优化
+
+### 构建优化
+- ✅ **代码分割**：按路由和组件自动分割
+- ✅ **Gzip 压缩**：减少传输体积
+- ✅ **Tree Shaking**：移除未使用代码
+- ✅ **懒加载**：图片和组件按需加载
+
+### 运行时优化
+- ✅ **虚拟滚动**：长列表性能优化
+- ✅ **防抖节流**：高频事件处理
+- ✅ **缓存策略**：API 数据缓存
+- ✅ **组件缓存**：keep-alive 页面缓存
+
+## 🎓 学习资源
+
+### Vue 3 学习
+- Composition API 最佳实践
+- TypeScript 集成
+- 组件通信模式
+
+### Element Plus 进阶
+- 自定义主题
+- 组件二次封装
+- 表单验证规则
+
+### ECharts 可视化
+- 图表类型选择
+- 响应式配置
+- 交互事件处理
+
+## 📄 许可证
+
+本项目基于 **MIT License** 开源，保留 renren-security 原有的开源协议。
+
+---
+
+**注意**：本项目为学习路径规划系统的前端部分，需要配合后端服务使用。如需完整部署，请参考根目录的 README.md 文档。
