@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logback Spring配置文件，用于配置应用程序的日志记录行为 -->
+<configuration>
+    <!-- 包含Spring Boot默认的基础配置，提供标准的日志输出格式和控制台输出 -->
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <!-- 配置特定包的日志级别，这些配置在所有环境下都生效 -->
+    <!-- 设置Spring Web框架包的日志级别为INFO，记录重要的Web请求信息 -->
+    <logger name="org.springframework.web" level="INFO"/>
+    <!-- 设置Spring Boot示例包的日志级别为TRACE，记录最详细的跟踪信息 -->
+    <logger name="org.springboot.sample" level="TRACE" />
+
+<!--    &lt;!&ndash; 数据访问层相关日志配置（haili和deepseek） &ndash;&gt;-->
+<!--    &lt;!&ndash; 设置DAO层包的日志级别为INFO，记录数据访问操作的基本信息 &ndash;&gt;-->
+<!--    <logger name="io.renren.modules.*.dao" level="INFO"/>-->
+<!--    &lt;!&ndash; 设置MyBatis-Plus框架的日志级别为INFO，记录ORM框架的操作信息 &ndash;&gt;-->
+<!--    <logger name="com.baomidou.mybatisplus" level="INFO"/>-->
+<!--    &lt;!&ndash; 设置Apache MyBatis框架的日志级别为INFO，记录SQL映射框架的操作信息 &ndash;&gt;-->
+<!--    <logger name="org.apache.ibatis" level="INFO"/>-->
+
+    <!-- 开发、测试环境配置，仅在激活dev或test profile时生效 -->
+    <springProfile name="dev,test">
+        <!-- 在开发和测试环境中，设置更详细的日志级别 -->
+        <logger name="org.springframework.web" level="INFO"/>
+        <logger name="org.springboot.sample" level="INFO" />
+        <!-- 项目主包设置为DEBUG级别，便于开发调试，记录详细的调试信息 -->
+        <logger name="io.renren" level="DEBUG" />
+    </springProfile>
+
+    <!-- 生产环境配置，仅在激活prod profile时生效 -->
+    <springProfile name="prod">
+        <!-- 在生产环境中，减少日志输出以提高性能 -->
+        <logger name="org.springframework.web" level="ERROR"/>
+        <logger name="org.springboot.sample" level="ERROR" />
+        <!-- 生产环境中项目主包只记录错误信息，避免过多日志影响性能 -->
+        <logger name="io.renren" level="ERROR" />
+    </springProfile>
+
+</configuration>

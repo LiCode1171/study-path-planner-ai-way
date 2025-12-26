@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.student.dao.UserProfileDao">
+
+    <resultMap type="io.renren.modules.student.entity.UserProfileEntity" id="userProfileMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="examCategory" column="exam_category"/>
+        <result property="targetSchool" column="target_school"/>
+        <result property="currentMajor" column="current_major"/>
+        <result property="targetMajor" column="target_major"/>
+        <result property="preparationMonths" column="preparation_months"/>
+        <result property="dailyStudyTime" column="daily_study_time"/>
+        <result property="publicCourseType" column="public_course_type"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+
+</mapper>

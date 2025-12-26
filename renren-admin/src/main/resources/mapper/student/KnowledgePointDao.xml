@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.student.dao.KnowledgePointDao">
+
+    <resultMap type="io.renren.modules.student.entity.KnowledgePointEntity" id="knowledgePointMap">
+        <result property="id" column="id"/>
+        <result property="examCategory" column="exam_category"/>
+        <result property="subjectName" column="subject_name"/>
+        <result property="chapter" column="chapter"/>
+        <result property="pointName" column="point_name"/>
+        <result property="difficulty" column="difficulty"/>
+        <result property="estimatedHours" column="estimated_hours"/>
+        <result property="weight" column="weight"/>
+        <result property="prerequisiteIds" column="prerequisite_ids"/>
+        <result property="description" column="description"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+
+</mapper>

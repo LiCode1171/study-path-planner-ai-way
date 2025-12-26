@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.student.dao.StudyPlanDao">
+
+    <resultMap type="io.renren.modules.student.entity.StudyPlanEntity" id="studyPlanMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="planName" column="plan_name"/>
+        <result property="totalDays" column="total_days"/>
+        <result property="dailyHours" column="daily_hours"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="status" column="status"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="totalSubjects" column="total_subjects"/>
+        <result property="completedSubjects" column="completed_subjects"/>
+        <result property="totalReviewDays" column="total_review_days"/>
+        <result property="overallProgress" column="overall_progress"/>
+    </resultMap>
+
+
+</mapper>

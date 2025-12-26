@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.renren.modules.student.dao.LearningResourceDao">
+
+    <resultMap type="io.renren.modules.student.entity.LearningResourceEntity" id="learningResourceMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="examCategory" column="exam_category"/>
+        <result property="subjectName" column="subject_name"/>
+        <result property="knowledgePointIds" column="knowledge_point_ids"/>
+        <result property="difficulty" column="difficulty"/>
+        <result property="sourcePlatform" column="source_platform"/>
+        <result property="description" column="description"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+
+</mapper>
